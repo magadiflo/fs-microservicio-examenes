@@ -1,10 +1,15 @@
 package com.magadiflo.examenes.app.models.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "preguntas")
@@ -15,6 +20,11 @@ public class Pregunta {
 	private Long id;
 
 	private String texto;
+
+	@JsonIgnoreProperties(value = { "preguntas" }) // Suprimimos el atributo preguntas para evitar generar un ciclo infinito
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "examen_id")
+	private Examen examen;
 
 	public Long getId() {
 		return id;
@@ -30,6 +40,26 @@ public class Pregunta {
 
 	public void setTexto(String texto) {
 		this.texto = texto;
+	}
+
+	public Examen getExamen() {
+		return examen;
+	}
+
+	public void setExamen(Examen examen) {
+		this.examen = examen;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pregunta other = (Pregunta) obj;
+		return this.id != null && this.id.equals(other.getId());
 	}
 
 	@Override
