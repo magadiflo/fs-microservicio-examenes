@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.magadiflo.commons.controllers.CommonController;
-import com.magadiflo.examenes.app.models.entity.Examen;
+import com.magadiflo.commons.examenes.models.entity.Examen;
 import com.magadiflo.examenes.app.services.IExamenService;
 
 @RestController
