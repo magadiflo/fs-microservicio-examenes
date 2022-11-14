@@ -21,7 +21,8 @@ public class Pregunta {
 
 	private String texto;
 
-	@JsonIgnoreProperties(value = { "preguntas" }) // Suprimimos el atributo preguntas para evitar generar un ciclo infinito
+	@JsonIgnoreProperties(value = { "preguntas" }) // Suprimimos el atributo preguntas para evitar generar un ciclo
+													// infinito
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "examen_id")
 	private Examen examen;
@@ -50,6 +51,8 @@ public class Pregunta {
 		this.examen = examen;
 	}
 
+	// Importante este método equals() para hacer comparaciones entre objetos
+	// que permitan actualizar, ver si existen, eliminar, etc.
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
