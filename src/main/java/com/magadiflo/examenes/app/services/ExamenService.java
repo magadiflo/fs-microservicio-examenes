@@ -28,8 +28,15 @@ public class ExamenService extends CommonServiceImpl<Examen, IExamenRepository> 
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Iterable<Asignatura> findAllAsignaturas() {
 		return this.asignaturaRepository.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<Long> findExamenesIdsConRespuestasByPreguntaIds(Iterable<Long> preguntaIds) {
+		return this.repository.findExamenesIdsConRespuestasByPreguntaIds(preguntaIds);
 	}
 
 }
