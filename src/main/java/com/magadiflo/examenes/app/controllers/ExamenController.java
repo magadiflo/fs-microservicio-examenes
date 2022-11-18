@@ -1,5 +1,6 @@
 package com.magadiflo.examenes.app.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -62,7 +63,7 @@ public class ExamenController extends CommonController<Examen, IExamenService> {
 	}
 
 	@GetMapping(path = "/respondidos-por-preguntas")
-	public ResponseEntity<?> obtenerExamenesIdsPorPreguntasIdRespondidas(@RequestParam Iterable<Long> preguntaIds) {
+	public ResponseEntity<?> obtenerExamenesIdsPorPreguntasIdRespondidas(@RequestParam List<Long> preguntaIds) {
 		return ResponseEntity.ok(this.service.findExamenesIdsConRespuestasByPreguntaIds(preguntaIds));
 	}
 
