@@ -48,6 +48,8 @@ public class ExamenController extends CommonController<Examen, IExamenService> {
 		// Agregar las nuevas preguntas y modificar las existentes, las que no se
 		// tocaron se dejan tal cual
 		examenBD.setPreguntas(examen.getPreguntas());
+		examenBD.setAsignaturaHija(examen.getAsignaturaHija());
+		examenBD.setAsignaturaPadre(examen.getAsignaturaPadre());
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(examenBD));
 	}
