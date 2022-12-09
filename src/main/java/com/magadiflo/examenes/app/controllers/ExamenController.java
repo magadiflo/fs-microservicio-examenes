@@ -2,6 +2,7 @@ package com.magadiflo.examenes.app.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.magadiflo.commons.controllers.CommonController;
 import com.magadiflo.commons.examenes.models.entity.Examen;
+import com.magadiflo.commons.examenes.models.entity.Pregunta;
 import com.magadiflo.examenes.app.services.IExamenService;
 
 @RestController
@@ -42,8 +44,10 @@ public class ExamenController extends CommonController<Examen, IExamenService> {
 		// Eliminamos las preguntas que no vienen en el JSON pero que sí están en la BD.
 		// Significa que esas preguntas fueron eliminadas por el cliente desde el
 		// frontend, por lo tanto, hay que actualizarlas, es decir eliminarlas de la BD
-		examenBD.getPreguntas().stream().filter(pregBD -> !examen.getPreguntas().contains(pregBD))
-				.forEach(examenBD::removePregunta);
+		List<Pregunta> preguntasAEliminar = examenBD.getPreguntas().stream()
+				.filter(pregBD -> !examen.getPreguntas().contains(pregBD)).collect(Collectors.toList());
+
+		preguntasAEliminar.forEach(examenBD::removePregunta);
 
 		// Agregar las nuevas preguntas y modificar las existentes, las que no se
 		// tocaron se dejan tal cual
